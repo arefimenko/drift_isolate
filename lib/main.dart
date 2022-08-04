@@ -41,6 +41,12 @@ class _HomeScreenState extends State<HomeScreen> {
   DatabaseIsolate? _databaseIsolate;
 
   @override
+  void dispose() {
+    databaseIsolate.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
