@@ -4,7 +4,6 @@ import 'dart:math';
 
 import 'package:drift/isolate.dart';
 import 'package:drift_isolate/database/database.dart';
-import 'package:flutter/foundation.dart';
 
 /// Обработчик ивентов в [Isolate].
 ///
@@ -139,23 +138,15 @@ class DatabaseIsolate {
   }
 
   /// Выполнить некое действие в изоляте.
-  ///
-  /// [resultCallback] - опциональный колбэк при успешном выполнении действия.
-  Future<void> _performAction(
-    _DatabaseMessage Function(int workId) message, {
-    VoidCallback? resultCallback,
-  }) async {
+  Future<void> _performAction(_DatabaseMessage Function(int workId) message) async {
     final workId = _getActionId();
     final sendPort = await _sendPort.future;
     sendPort.send(message(workId));
     return _stream.stream.firstWhere((response) => response.id == workId).then((value) {
-      if (value is _DatabaseIsolateResult) {
-        resultCallback?.call();
-        return;
-      }
+      if (value is _DatabaseIsolateResult) return;
       if (value is _DatabaseIsolateException) throw value.exception;
       throw UnimplementedError(
-        'Для данного типа $value не обработан результат выполнения в switchTo.',
+        'Для данного типа $value не обработан результат выполнения в _performAction.',
       );
     });
   }
