@@ -7,6 +7,7 @@ import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
+/// создать подключение к БД через [Isolate].
 Future<DriftIsolate> createFileIsolate(String filename) async {
   final dataDirectory = await getApplicationDocumentsDirectory();
   final dbFilepath = p.join(dataDirectory.path, '$filename.sqlite');
