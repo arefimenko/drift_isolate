@@ -1,0 +1,8 @@
+CREATE TABLE "prices" (
+    "id" TEXT,
+    "brand" TEXT,
+    "barcode" TEXT NOT NULL,
+    "newPrice" INTEGER NOT NULL,
+    "oldPrice" INTEGER,
+    "article" TEXT NOT NULL PRIMARY KEY
+) AS DbPrice;
