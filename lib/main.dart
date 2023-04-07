@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     final count = parseInsertCount();
     final sw = Stopwatch()..start();
-    await database.insertPrices(PricesDataFaker.generate(count));
+    await database.insertPrices(PricesDataFaker.generate(count).toList());
     dataCount = await database.pricesCount();
     sw.stop();
     duration = Duration(milliseconds: sw.elapsedMilliseconds);
@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     final count = parseInsertCount();
     final sw = Stopwatch()..start();
-    await databaseIsolate.insertPrices(PricesDataFaker.generate(count));
+    await databaseIsolate.insertPrices(PricesDataFaker.generate(count).toList());
     dataCount = await databaseIsolate.pricesCount();
     sw.stop();
     duration = Duration(milliseconds: sw.elapsedMilliseconds);
